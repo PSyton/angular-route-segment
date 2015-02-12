@@ -195,7 +195,11 @@ mod.provider( '$routeSegment',
                     if(!segmentRoutes[segmentName])
                         throw new Error('Can not get URL for segment with name `'+segmentName+'`');
 
-                    routeParams = angular.extend({}, $routeParams, routeParams || {});
+                    if (routeParams === false) {
+                      routeParams = {};
+                    } else {
+                      routeParams = angular.extend({}, $routeParams, routeParams || {});
+                    }
 
                     url = segmentRoutes[segmentName];
                     for(i in routeParams) {
