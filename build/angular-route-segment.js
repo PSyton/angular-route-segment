@@ -126,9 +126,21 @@ mod.provider( '$routeSegment',
      * The shorthand for $routeProvider.when() method with specified route name.
      * @param {string} route Route URL, e.g. '/foo/bar'
      * @param {string} name Fully qualified route name, e.g. 'foo.bar'
+     * @param {boolean} reloadOnSearch Reload route when only `$location.search()`
+     *      or `$location.hash()` changes.
+     * @param {boolean} caseInsensitiveMatch Match routes without being case sensitive
      */
-    $routeSegmentProvider.when = function(route, name) {
-        $routeProvider.when(route, {segment: name});
+    $routeSegmentProvider.when = function(route, name, reloadOnSearch, caseInsensitiveMatch) {
+        var params = {
+            segment: name
+        }
+        if (!angular.isUndefined(reloadOnSearch)) {
+          params.reloadOnSearch = reloadOnSearch;
+        }
+        if (!angular.isUndefined(caseInsensitiveMatch)) {
+          params.caseInsensitiveMatch = caseInsensitiveMatch;
+        }
+        $routeProvider.when(route, params);
         segmentRoutes[name] = route;
         return this;
     };
