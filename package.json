@@ -12,7 +12,7 @@
         "karma-junit-reporter": "",
         "grunt-git-describe": ""
     },
-    "main": "build/angular-route-segment.js",
+    "main": ["build/angular-route-segment.js", "build/angular-route-segment.min.js"],
     "scripts": {
         "test": "grunt karma"
     }
