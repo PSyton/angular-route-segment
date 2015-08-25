@@ -1,5 +1,5 @@
 /**
- * angular-route-segment 1.4.0
+ * angular-route-segment 1.5.0
  * https://angular-route-segment.com
  * @author Artem Chivchalov
  * @license MIT License http://opensource.org/licenses/MIT
@@ -124,24 +124,17 @@ mod.provider( '$routeSegment',
     
     /**
      * The shorthand for $routeProvider.when() method with specified route name.
-     * @param {string} route Route URL, e.g. '/foo/bar'
+     * @param {string} path Route URL, e.g. '/foo/bar'
      * @param {string} name Fully qualified route name, e.g. 'foo.bar'
-     * @param {boolean} reloadOnSearch Reload route when only `$location.search()`
-     *      or `$location.hash()` changes.
-     * @param {boolean} caseInsensitiveMatch Match routes without being case sensitive
+     * @param {Object} route Mapping information to be assigned to $route.current on route match.
      */
-    $routeSegmentProvider.when = function(route, name, reloadOnSearch, caseInsensitiveMatch) {
-        var params = {
-            segment: name
-        }
-        if (!angular.isUndefined(reloadOnSearch)) {
-          params.reloadOnSearch = reloadOnSearch;
-        }
-        if (!angular.isUndefined(caseInsensitiveMatch)) {
-          params.caseInsensitiveMatch = caseInsensitiveMatch;
-        }
-        $routeProvider.when(route, params);
-        segmentRoutes[name] = route;
+    $routeSegmentProvider.when = function(path, name, route) {
+        if (route == undefined)
+            route = {};
+        route.segment = name;
+
+        $routeProvider.when(path, route);
+        segmentRoutes[name] = path;
         return this;
     };
     
